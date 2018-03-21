@@ -59,7 +59,8 @@ var spriter = function(options) {
 		'spritesmithOptions': {},
 		// Used to format output CSS
 		// You should be using a separate beautifier plugin
-		'outputIndent': '\t'
+		'outputIndent': '\t',
+		'filter': null,
 	};
 
 	var settings = extend({}, defaults, options);
@@ -106,7 +107,7 @@ var spriter = function(options) {
 			}
 			
 			// Gather a list of all of the image declarations
-			var chunkBackgroundImageDeclarations = getBackgroundImageDeclarations(styles, settings.includeMode);
+			var chunkBackgroundImageDeclarations = getBackgroundImageDeclarations(styles, settings.includeMode,settings.filter);
 
 
 			// Go through each declaration and gather the image paths
@@ -222,7 +223,7 @@ var spriter = function(options) {
 								var transformedChunk = chunk.clone();
 
 								try {
-									transformedChunk = transformFileWithSpriteSheetData(transformedChunk, result.coordinates, settings.pathToSpriteSheetFromCSS, settings.includeMode, settings.silent, settings.outputIndent);
+									transformedChunk = transformFileWithSpriteSheetData(transformedChunk, result.coordinates, settings.pathToSpriteSheetFromCSS, settings.includeMode, settings.silent, settings.outputIndent, settings.filter);
 								}
 								catch(err) {
 									err.message = 'Something went wrong when transforming chunks: ' + err.message;
